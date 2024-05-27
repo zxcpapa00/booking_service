@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Uuid, DateTime
+from sqlalchemy import Column, String, Uuid, DateTime
 
 from src.db.db import Base
 
