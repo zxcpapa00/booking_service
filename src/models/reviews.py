@@ -4,7 +4,7 @@ from sqlalchemy import Column, Uuid, Text, Integer, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 
 from src.db.db import Base
-from src.schemas.rewies import ReviewSchema
+from src.schemas.reviews import ReviewSchema
 
 
 class Reviews(Base):
