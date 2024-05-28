@@ -1,6 +1,7 @@
 import uuid
 from sqlalchemy import Column, String, Uuid, Text
 from src.db.db import Base
+from src.schemas.hotels import HotelSchema
 
 
 class Hotels(Base):
@@ -11,3 +12,10 @@ class Hotels(Base):
     description = Column(Text)
     city = Column(String, nullable=False)
 
+    def to_read_model(self) -> HotelSchema:
+        return HotelSchema(
+            id=self.id,
+            name=self.name,
+            description=self.description,
+            city=self.city
+        )

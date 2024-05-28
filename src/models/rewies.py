@@ -4,6 +4,7 @@ from sqlalchemy import Column, Uuid, Text, Integer, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 
 from src.db.db import Base
+from src.schemas.rewies import ReviewSchema
 
 
 class Reviews(Base):
@@ -18,3 +19,13 @@ class Reviews(Base):
 
     user = relationship('Users', back_populates='reviews', cascade='all')
     hotel = relationship('Hotels', back_populates='review', cascade='all')
+
+    def to_read_model(self) -> ReviewSchema:
+        return ReviewSchema(
+            id=self.id,
+            comment=self.comment,
+            star=self.star,
+            created_at=self.created_at,
+            user_id=self.user_id,
+            hotel_id=self.hotel_id
+        )

@@ -3,6 +3,7 @@ from sqlalchemy import Column, Uuid, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 
 from src.db.db import Base
+from src.schemas.bookings import BookingSchema
 
 
 class Bookings(Base):
@@ -16,3 +17,12 @@ class Bookings(Base):
 
     user = relationship('Users', back_populates='bookings', cascade='all')
     room = relationship('Rooms', back_populates='booking', cascade='all')
+
+    def to_read_model(self) -> BookingSchema:
+        return BookingSchema(
+            id=self.id,
+            start_date=self.start_date,
+            end_date=self.end_date,
+            user_id=self.user_id,
+            room_id=self.room_id
+        )
