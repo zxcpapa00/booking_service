@@ -12,6 +12,6 @@ class Rooms(Base):
     type = Column(String(150), nullable=False)
     description = Column(Text)
     price = Column(Integer)
-    menu_id = Column(Uuid, ForeignKey('hotels.id', ondelete='CASCADE'))
+    hotel_id = Column(Uuid, ForeignKey('hotels.id', ondelete='CASCADE'))
 
     hotel = relationship('Hotels', back_populates='rooms', cascade='all')
