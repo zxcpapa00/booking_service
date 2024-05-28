@@ -4,7 +4,7 @@ import uuid
 from pydantic import BaseModel, EmailStr
 
 
-class HotelSchema(BaseModel):
+class UserSchema(BaseModel):
     id: uuid.UUID
     username: str
     password_hashed: str
