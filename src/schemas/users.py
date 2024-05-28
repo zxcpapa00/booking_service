@@ -11,3 +11,9 @@ class UserSchema(BaseModel):
     email: EmailStr
     role: str
     created_at: datetime.datetime
+
+
+class UserRegisterSchema(BaseModel):
+    username: str
+    email: EmailStr
+    password_hashed: str

@@ -6,3 +6,7 @@ migrations
 src/__pycache__/
 src/db/__pycache__/
 src/models/__pycache__/
+src/schemas/__pycache__/
+src/routers/__pycache__/
+src/utils/__pycache__/
+src/repositories/__pycache__/

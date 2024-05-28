@@ -14,11 +14,19 @@ class AbstractRepository(ABC):
     async def find_all(self, *args, **kwargs):
         raise NotImplementedError
 
+    @abstractmethod
+    async def find_one_or_none(self, *args, **kwargs):
+        raise NotImplementedError
+
+    @abstractmethod
+    async def find_by_id(self, *args, **kwargs):
+        raise NotImplementedError
+
 
 class SQLAlchemyRepository(AbstractRepository):
     model = None
 
-    async def add_one(self, data: dict) -> int:
+    async def add_one(self, **data) -> int:
         async with async_session_maker() as session:
             stmt = insert(self.model).values(**data).returning(self.model.id)
             res = await session.execute(stmt)
