@@ -1,3 +1,4 @@
+import uuid
 from abc import ABC, abstractmethod
 from sqlalchemy import insert, select
 from src.db.db import async_session_maker
@@ -30,3 +31,15 @@ class SQLAlchemyRepository(AbstractRepository):
             res = await session.execute(stmt)
             res = [i[0].to_read_model() for i in res.all()]
             return res
+
+    async def find_one_or_none(self, **filters):
+        async with async_session_maker() as session:
+            stmt = select(self.model).filter_by(**filters)
+            res = await session.execute(stmt)
+            return res.scalar_one_or_none()
+
+    async def find_by_id(self, model_id: uuid.UUID):
+        async with async_session_maker() as session:
+            stmt = select(self.model).filter_by(id=model_id)
+            res = await session.execute(stmt)
+            return res.scalar_one_or_none()
