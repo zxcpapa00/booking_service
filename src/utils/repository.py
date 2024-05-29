@@ -1,6 +1,6 @@
 import uuid
 from abc import ABC, abstractmethod
-from sqlalchemy import insert, select
+from sqlalchemy import insert, select, delete
 from src.db.db import async_session_maker
 
 
@@ -20,6 +20,10 @@ class AbstractRepository(ABC):
 
     @abstractmethod
     async def find_by_id(self, *args, **kwargs):
+        raise NotImplementedError
+
+    @abstractmethod
+    async def delete_by_id(self, *args, **kwargs):
         raise NotImplementedError
 
 
@@ -51,3 +55,9 @@ class SQLAlchemyRepository(AbstractRepository):
             stmt = select(self.model).filter_by(id=model_id)
             res = await session.execute(stmt)
             return res.scalar_one_or_none()
+
+    async def delete_by_id(self, model_id: uuid.UUID):
+        async with async_session_maker() as session:
+            stmt = delete(self.model).filter_by(id=model_id)
+            await session.execute(stmt)
+            await session.commit()

@@ -8,3 +8,9 @@ class HotelSchema(BaseModel):
     name: str
     description: str
     city: str
+
+
+class AddHotelSchema(BaseModel):
+    name: str
+    description: str
+    city: str
