@@ -12,5 +12,9 @@ class Settings(BaseSettings):
     DB_PASS: str
     DB_NAME: str
 
+    # auth
+    SECRET_KEY: str
+    ALGORITHM: str
+
 
 settings = Settings()

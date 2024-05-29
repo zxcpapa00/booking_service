@@ -10,3 +10,4 @@ src/schemas/__pycache__/
 src/routers/__pycache__/
 src/utils/__pycache__/
 src/repositories/__pycache__/
+src/services/__pycache__/
