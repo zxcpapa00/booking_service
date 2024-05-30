@@ -8,3 +8,9 @@ class RoomSchema(BaseModel):
     type: str
     description: str
     price: int
+
+
+class RoomsAddSchema(BaseModel):
+    type: str
+    description: str
+    price: int

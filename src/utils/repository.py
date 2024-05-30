@@ -26,6 +26,9 @@ class AbstractRepository(ABC):
     async def delete_by_id(self, *args, **kwargs):
         raise NotImplementedError
 
+    async def find_by_filters(self, *args, **kwargs):
+        raise NotImplementedError
+
 
 class SQLAlchemyRepository(AbstractRepository):
     model = None
@@ -56,8 +59,15 @@ class SQLAlchemyRepository(AbstractRepository):
             res = await session.execute(stmt)
             return res.scalar_one_or_none()
 
-    async def delete_by_id(self, model_id: uuid.UUID):
+    async def delete_by_id(self, model_id: uuid.UUID, **kwargs):
         async with async_session_maker() as session:
-            stmt = delete(self.model).filter_by(id=model_id)
+            stmt = delete(self.model).filter_by(id=model_id, **kwargs)
             await session.execute(stmt)
             await session.commit()
+
+    async def find_by_filters(self, **filters):
+        async with async_session_maker() as session:
+            stmt = select(self.model).filter_by(**filters)
+            res = await session.execute(stmt)
+            res = [i[0].to_read_model() for i in res.all()]
+            return res

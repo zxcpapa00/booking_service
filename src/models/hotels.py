@@ -1,5 +1,7 @@
 import uuid
 from sqlalchemy import Column, String, Uuid, Text
+from sqlalchemy.orm import relationship
+
 from src.db.db import Base
 from src.schemas.hotels import HotelSchema
 
@@ -11,6 +13,8 @@ class Hotels(Base):
     name = Column(String(150), nullable=False)
     description = Column(Text)
     city = Column(String, nullable=False)
+
+    rooms = relationship('Rooms', back_populates='hotel', cascade='all')
 
     def to_read_model(self) -> HotelSchema:
         return HotelSchema(
