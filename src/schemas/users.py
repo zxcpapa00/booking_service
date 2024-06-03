@@ -22,3 +22,11 @@ class UserRegisterSchema(BaseModel):
 class UserLoginSchema(BaseModel):
     email: EmailStr
     password: str
+
+
+class UserProfileSchema(BaseModel):
+    id: uuid.UUID
+    username: str
+    email: EmailStr
+    role: str
+    created_at: datetime.datetime

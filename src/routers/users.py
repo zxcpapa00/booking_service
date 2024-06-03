@@ -1,9 +1,11 @@
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Response, Depends
 
+from src.models.users import Users
 from src.repositories.users import UserRepository
 from src.services.users import UsersService
 
-from src.schemas.users import UserRegisterSchema, UserLoginSchema
+from src.schemas.users import UserRegisterSchema, UserLoginSchema, UserProfileSchema
+from src.utils.dependencies import get_current_user
 
 router = APIRouter(
     prefix="/auth",
@@ -19,3 +21,13 @@ async def register_user(user_data: UserRegisterSchema):
 @router.post("/login")
 async def login_user(response: Response, user_data: UserLoginSchema):
     return await UsersService(UserRepository).login_user(response, user_data)
+
+
+@router.post("/logout")
+async def logout(response: Response):
+    response.delete_cookie("access_token")
+
+
+@router.get("/profile")
+async def get_profile(user=Depends(get_current_user)) -> UserProfileSchema:
+    return user
