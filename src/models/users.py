@@ -2,6 +2,7 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import Column, String, Uuid, DateTime
+from sqlalchemy.orm import relationship
 
 from src.db.db import Base
 from src.schemas.users import UserSchema
@@ -16,6 +17,8 @@ class Users(Base):
     email = Column(String(200), unique=True, nullable=False)
     role = Column(String(5), default="user")
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+
+    bookings = relationship('Bookings', back_populates='user', cascade='all')
 
     def to_read_model(self) -> UserSchema:
         return UserSchema(

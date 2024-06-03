@@ -16,6 +16,7 @@ class Rooms(Base):
     hotel_id = Column(Uuid, ForeignKey('hotels.id', ondelete='CASCADE'))
 
     hotel = relationship('Hotels', back_populates='rooms', cascade='all')
+    booking = relationship('Bookings', back_populates='room', cascade='all')
 
     def to_read_model(self) -> RoomSchema:
         return RoomSchema(

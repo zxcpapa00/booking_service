@@ -32,3 +32,7 @@ class UsersService:
         access_token = create_access_token({"sub": str(user.id)})
         response.set_cookie("access_token", access_token, httponly=True)
         return access_token
+
+    async def get_user(self, user_id):
+        user = await self.user_repo.find_by_id(user_id)
+        return user
