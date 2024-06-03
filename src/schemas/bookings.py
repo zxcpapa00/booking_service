@@ -10,3 +10,9 @@ class BookingSchema(BaseModel):
     room_id: uuid.UUID
     start_date: datetime.datetime
     end_date: datetime.datetime
+
+
+class AddBookingSchema(BaseModel):
+    room_id: uuid.UUID
+    start_date: datetime.datetime
+    end_date: datetime.datetime

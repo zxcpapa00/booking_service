@@ -6,6 +6,9 @@ class RoomsService:
     def __init__(self, room_repo: AbstractRepository):
         self.room_repo = room_repo()
 
+    async def get_room(self, room_id):
+        return await self.room_repo.find_one_or_none(id=room_id)
+
     async def get_rooms(self, hotel_id):
         rooms = await self.room_repo.find_by_filters(hotel_id=hotel_id)
         return rooms
