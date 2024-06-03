@@ -36,3 +36,7 @@ class UsersService:
     async def get_user(self, user_id):
         user = await self.user_repo.find_by_id(user_id)
         return user
+
+    @staticmethod
+    async def logout_user(response: Response):
+        response.delete_cookie("access_token")

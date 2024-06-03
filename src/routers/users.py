@@ -25,7 +25,7 @@ async def login_user(response: Response, user_data: UserLoginSchema):
 
 @router.post("/logout")
 async def logout(response: Response):
-    response.delete_cookie("access_token")
+    await UsersService(UserRepository).logout_user(response)
 
 
 @router.get("/profile")
